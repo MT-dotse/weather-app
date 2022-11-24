@@ -1,5 +1,4 @@
 //import chalk from 'chalk';
-//const request = require('postman-request');
 const geocode = require('./utlis/geocode.js');
 const forecast = require('./utlis/forecast.js');
 
