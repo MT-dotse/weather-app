@@ -1,13 +1,12 @@
-//import chalk from 'chalk';
-const geocode = require('./utlis/geocode.js');
-const forecast = require('./utlis/forecast.js');
+import geocode from './utlis/geocode.js';
+import forecast from './utlis/forecast.js';
 
-geocode('Boston', (error, data) => {
+geocode('Amman', (error, data) => {
     console.log('Error', error);
     console.log('Data', data);
 });
 
-forecast('Nicosia, Cypress', (error, data) => {
+forecast('Amman, Jordan', (error, data) => {
     console.log('Error', error);
     console.log('Data', data);
 });
