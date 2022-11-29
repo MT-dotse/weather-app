@@ -4,30 +4,31 @@ import config from '../config.js';
 
 const Weather_KEY = config.Weather_KEY;
 
-const forecast = (address, callback) => {
+const forecast = (lat, lon, callback) => {
     const url =
-        'http://api.openweathermap.org/data/2.5/weather?q=' +
-        address +
-        '&units=metric&APPID=' +
-        Weather_KEY;
+        'http://api.openweathermap.org/data/2.5/weather?lat=' +
+        lat +
+        '&lon=' +
+        lon +
+        '&appid=' +
+        Weather_KEY +
+        '&units=metric';
 
-    request({ url: url, json: true }, (error, response) => {
+    request({ url, json: true }, (error, { body }) => {
         if (error) {
             callback(
                 chalk.red('Unable to connect to weather services!', undefined)
             );
-        } else if (response.body.cod === '404') {
+        } else if (body.cod === '404') {
             callback(
-                chalk.red(
-                    'Unable to find location. Try another weather search!',
-                    undefined
-                )
+                'Unable to find location. Try another weather search!',
+                undefined
             );
         } else {
-            const locationName = response.body.name;
-            const description = response.body.weather[0].description;
-            const humidity = response.body.main.humidity;
-            const currentDegrees = response.body.main.temp;
+            const locationName = body.name;
+            const description = body.weather[0].description;
+            const humidity = body.main.humidity;
+            const currentDegrees = body.main.temp;
             callback(
                 undefined,
                 `It is currently ${currentDegrees} degrees with ${description} in ${chalk.green.inverse.bold(
